@@ -251,3 +251,8 @@ docker run -v /tmp/.X11-unix:/tmp/.X11-unix:rw --gpus all -e DISPLAY=$DISPLAY -i
 Também certifique-se de que os clientes X possam ser conectados de qualquer host, incluindo nosso contêiner Docker, executando ```xhost +```.
 
 [O que é x11?](https://www.baeldung.com/linux/x11).
+
+
+---
+
+[DOCUMENTAÇÃO OFICIAL DOCKER](https://docs.docker.com/engine/reference/run/)
