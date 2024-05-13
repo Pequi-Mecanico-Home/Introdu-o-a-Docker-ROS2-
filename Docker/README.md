@@ -8,41 +8,36 @@ Vamos agora aprender um pouco de rede.
 ## Alguns básicos de rede
 ### Interface configuration
 Listar todas as interfaces de rede ativas no seu sistema
-```
+```bash
 ifconfig
-
 ```
 Você pode analisar o ip da máquina se atentando ao inet da rede.
 
 Você pode também utilizar o comando ip:
-```
+```sh
 ip address show
 ```
 ### Security protocol
 Transferir arquivos ou diretórios de um host para outro em uma rede
-```
+```sh
 scp origem destino
-
 ```
 Para a máquina que não é host, é necessário especificar seu ip pelo formato **usuario@ip**. Exemplo:
 
-```
+```sh
 scp arquivo.txt usuario@servidor:/caminho/para/o/destino
-
 ```
 ### Secure Shell
 
  É um protocolo de rede seguro que permite a comunicação segura e remota com outros dispositivos em uma rede, ou seja, acessar outra máquina.
 
-```
+```sh
 ssh usuario@endereco_do_servidor
-
 ```
 Por padrão, a porta usada é a 22, mas você pode alterar isso com a flag **-p**:
 
-```
+```sh
 ssh usuario@endereco_do_servidor -p {porta}
-
 ```
 
 
@@ -62,81 +57,81 @@ Esses e mais conceitos podem ser respondidos na primeira mentade desse [vídeo](
 
 ### Listar imagens 
 Mostra todas as imagens instaladas em seu sistema.
-```
+```sh
 docker images
 ```
 
 ### Remover imagem
 
-```
+```sh
 docker rmi {nome_da_imagem}
 ```
 
 ### Baixar uma imagem
 Baixar uma imagem do Docker Hub
-```
+```sh
 docker pull {nome_da_imagem}:{tag}
 ```
 ### Buildar uma imagem
 
 A partir de um [Dockerfile](https://nickjanetakis.com/blog/differences-between-a-dockerfile-docker-image-and-docker-container)
-```
+```sh
 docker build {nome_DockerFile}
 ```
 Por padrão, é buildado o arquivo com nome DockerFile caso selecione o próprio diretório como {nome_DockerFile}
 
 Caso queira espeficar a tag da imagem (por padrão latest), basta utilizar  a flag -t:
 
-```
+```sh
 docker build {nome_DockerFile} -t {nome_da_imagem_a_ser_buildada}:{tag}
 ```
 
 ### Executar um container
 Para iniciar um novo contêiner a partir de uma imagem.
-```
+```sh
 docker run {nome_da_imagem}
 ```
 
 
 ### Ver containers 
 Listar containers em execução:
-```
+```sh
 docker ps
 ```
 
 Caso queira ver inclusive aqueles parados, execute:
-```
+```sh
 docker ps -a
 ```
 ### Executar comandos em um container
 
 
-```
+```sh
 docker exec -it {id_do_container} bash
 ```
 Neste exemplo, **bash** é o shell que será executado no contêiner. **-it** é a flag usada para indicar que você deseja interagir com o terminal interativo do contêiner
 
 ### Iniciar um container parado
 
-```
+```sh
 docker start {id_do_container}
 ```
 
 ### Parar um container
 
 
-```
+```sh
 docker stop {id_do_container}
 ```
 ### Remover um container
 
 
-```
+```sh
 docker rm {id_do_container}
 ```
 ### Attach
 Conectar o terminal atual do seu host ao terminal de um contêiner Docker em execução (isso permite ver os outputs, erros etc do container em execução)
-```
+```sh
 docker attach {id_container}
 
 ```
@@ -171,7 +166,7 @@ docker run pasta/no/host:pasta/no/container imagem
 
 ### --name:
 Permite você dar um nome específico ao container
-```
+```sh
 docker run --name {nome_do_container} imagem
 ```
 
@@ -183,26 +178,26 @@ Apaga o container quando for encerrado (útil para economizar espaço).
 
 ### --publish / -p:
 Publica a porta de um container, permite que você controle explicitamente a correspondência de portas entre o host e o container.
-```
+```sh
 docker run -p porta_host:porta_container imagem
 ```
 ### - P (uppercase):
 Publica as portas de um container, mas deixa o Docker lidar automaticamente com a atribuição de portas no host para os portas expostos pelo container.
 Para mais detalhes entre a diferenca de -p e -P, [acesse aqui](https://www.mend.io/free-developer-tools/blog/docker-expose-port/).
 
-```
+```sh
 docker -P run imagem
 ```
 
 ### --ipc
 Interprocess comunication, permite controlar o compartilhamento do namespace IPC entre containers. Ou seja,permite que os processos dentro do container se comuniquem diretamente com os processos do host. 
 
-```
+```sh
 docker run --ipc=host imagem
 ```
 ### -net / --network
 Permite especificar a configuração de rede para um container. É possível definir em qual rede o container será conectado.
-```
+```sh
 docker run --network=host imagem
 ```
 ### --privileged
@@ -211,7 +206,7 @@ Concede ao container acesso total aos dispositivos, desativa muitos dos recursos
 
 ### --memory
 Permite limitar a quantidade de memória RAM que um contêiner pode consumir
-```
+```sh
 docker run --memory=2g imagem
 ```
 
@@ -221,11 +216,11 @@ Permite que você estabeleça restrições em vários recursos do sistema, como 
 ### --gpus
 Permite especificar quantos recursos de GPU um contêiner pode acessar.
 
-```
+```sh
 docker run --gpus <valor> imagem
 ```
 ou até mesmo 
-```
+```sh
 docker run --gpus all imagem
 ```
 
@@ -233,9 +228,8 @@ docker run --gpus all imagem
 Definir o tempo de execução (runtime) para um container específico.
 
 
-```
+```sh
 docker run --runtime=<nome> imagem
-
 ```
 
 
@@ -243,9 +237,8 @@ docker run --runtime=<nome> imagem
 ## GUI
 Para obter acesso a uma interface gráfica dentro de seu container, faça com que a partir de uma imagem Docker definindo a variável de ambiente DISPLAY com ```-e DISPLAY=$DISPLAY``` e o volume com ```-v /tmp/.X11-unix:/tmp/.X11-unix```. 
 
-```
+```sh
 docker run -v /tmp/.X11-unix:/tmp/.X11-unix:rw --gpus all -e DISPLAY=$DISPLAY -it {nome_da_imagem}
-
 ```
 
 Também certifique-se de que os clientes X possam ser conectados de qualquer host, incluindo nosso contêiner Docker, executando ```xhost +```.

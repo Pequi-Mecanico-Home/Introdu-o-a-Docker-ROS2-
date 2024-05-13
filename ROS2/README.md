@@ -20,7 +20,7 @@ Dentro do ROS2, um nó é uma unidade fundamental no sistema, representando um p
 Cada nó é executado como um processo independente, proporcionando isolamento e facilitando o desenvolvimento modular. Isso permite que diferentes partes de um sistema robótico sejam desenvolvidas, testadas e modificadas independentemente.<br><br>
 Abaixo temos um exemplo da criação de um nó simples em python:
 
-```
+```python
 import rclpy
 from rclpy.node import Node
 
@@ -58,7 +58,7 @@ Para criar tópicos, é necessário o entendimento dos conceitos de publisher e 
 
 Um Publisher cria e publica mensagens em um tópico específico. Ele está associado a um tipo de mensagem e fornece uma interface para enviar dados a outros nós interessados no mesmo tópico. Abaixo um exemplo de como criar um publicador.
 
-```
+```python
 class MinimalPublisher(Node):
  
  def __init__(self):
@@ -73,7 +73,7 @@ class MinimalPublisher(Node):
 
 Um Subscriber cria uma assinatura (subscription) para um tópico específico e especifica uma função de retorno de chamada (callback) que será executada sempre que uma nova mensagem for recebida. Ele consome mensagens publicadas no tópico associado. Abaixo um exemplo de subscrição em um tópico.
 
-```
+```python
 class MinimalSubscriber(Node):
  
  def __init__(self):
@@ -94,7 +94,7 @@ Um nó que oferece um serviço é chamado de servidor de serviço (Service Serve
 
 Exemplo de criação de um serviço:
 
-```
+```python
 from example_interfaces.srv import AddTwoInts
 
 import rclpy
@@ -136,7 +136,7 @@ As ações suportam timeouts, o que significa que o cliente pode especificar qua
 
 Exemplo para criação de uma ação:
 
-```
+```python
 import rclpy
 from rclpy.action import ActionServer
 from rclpy.node import Node
