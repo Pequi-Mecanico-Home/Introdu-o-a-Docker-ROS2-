@@ -16,8 +16,10 @@ Para entender como o ROS é estruturado, o entendimento de seus conceitos é o p
 
 ### Nó
 
-Dentro do ROS2, um nó é uma unidade fundamental no sistema, representando um processo independente que executa tarefas específicas. Os Nós são essenciais para a arquitetura do ROS2, permitindo a modularidade e a distribuição de funcionalidades em um sistema robótico.<br><br>
-Cada nó é executado como um processo independente, proporcionando isolamento e facilitando o desenvolvimento modular. Isso permite que diferentes partes de um sistema robótico sejam desenvolvidas, testadas e modificadas independentemente.<br><br>
+Dentro do ROS2, um nó é uma unidade fundamental no sistema, representando um processo independente que executa tarefas específicas. Os Nós são essenciais para a arquitetura do ROS2, permitindo a modularidade e a distribuição de funcionalidades em um sistema robótico.
+
+Cada nó é executado como um processo independente, proporcionando isolamento e facilitando o desenvolvimento modular. Isso permite que diferentes partes de um sistema robótico sejam desenvolvidas, testadas e modificadas independentemente.
+
 Abaixo temos um exemplo da criação de um nó simples em python:
 
 ```python
@@ -38,6 +40,25 @@ def main(args=None):
     
 if __name__ == '__main__':
     main()
+```
+
+<br>
+Beleza, agora você já sabe o que é um nó e como pode cria-lo, mas aqui vai algumas dicas importantes e alguns comandos úteis utilizando nós:
+
+### Primeiro vamos rodar um executável de um pacote:
+```pyhton
+ros2 run <package_name> <executable_name>
+```
+No tutorial oficial do ROS 2 esses comandos são utilizados para rodar o turlesim: [Understanding node](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html) , uma simulação de uma tartaruga. Naquele caso, o turtlesim é um pacote, e o turtlesim_node é um nó
+
+### Para você ver quais nós estão rodando e suas informações você pode rodar os seguintes comandos:
+
+```python
+ros2 node list
+```
+
+```python
+ros2 node info <name_of_the_node>
 ```
 
 ### Mensagem

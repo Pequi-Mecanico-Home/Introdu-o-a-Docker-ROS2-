@@ -1,6 +1,6 @@
 # Documentação ROS2
 
-Este repositório foi criado pelo nosso coleguinha João Victor Costa. Tem foco na criação e uso de um Workspace 
+Este repositório foi criado pelo nosso coleguinha João Victor Costa. Tem foco na criação e uso de um Workspace.
 
 # Sumário
 
