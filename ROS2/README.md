@@ -43,15 +43,19 @@ if __name__ == '__main__':
 ```
 
 <br>
-Beleza, agora você já sabe o que é um nó e como pode cria-lo, mas aqui vai algumas dicas importantes e alguns comandos úteis utilizando nós:
+Beleza, agora você já sabe o que é um nó e como pode cria-lo. Aqui vai algumas dicas importantes e alguns comandos úteis de como utilizar nós:
 
-### Primeiro vamos rodar um executável de um pacote:
+#### Antes de qualquer coisa, nunca se esqueça de dar source no ROS, sempre que for utiliza-lo, ou ativa-lo através de um docker, caso esteja utlizando ROS por container
+
+#### Primeiro vamos rodar um executável de um pacote:
 ```pyhton
 ros2 run <package_name> <executable_name>
 ```
-No tutorial oficial do ROS 2 esses comandos são utilizados para rodar o turlesim: [Understanding node](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html) , uma simulação de uma tartaruga. Naquele caso, o turtlesim é um pacote, e o turtlesim_node é um nó
+No tutorial oficial do ROS 2 esses comandos são utilizados para rodar o turlesim: [Understanding node](https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html).  Naquele caso, o turtlesim é um pacote, e o turtlesim_node é um nó.
 
-### Para você ver quais nós estão rodando e suas informações você pode rodar os seguintes comandos:
+Lembre-se que você sempre vai precisar estar com um workspace ativo para usar qualquer comando passado aqui. 
+
+#### Para você ver quais nós estão rodando e suas respectivas informações você pode rodar os seguintes comandos:
 
 ```python
 ros2 node list
@@ -60,7 +64,12 @@ ros2 node list
 ```python
 ros2 node info <name_of_the_node>
 ```
-
+#### Outra função interessante e útil é:
+```python
+rqt_graph
+```
+Ela nos permite visualizar claramente a interação entre nós e tópicos. 
+ 
 ### Mensagem
 
 Em ROS2, uma mensagem é uma estrutura de dados usada para trocar informações entre Nós através de tópicos. As mensagens definem o formato dos dados que estão sendo transmitidos, permitindo que Nós diferentes comuniquem informações específicas de maneira padronizada. Cada tópico em ROS2 é associado a um tipo de mensagem particular.<br><br>
@@ -104,6 +113,48 @@ class MinimalSubscriber(Node):
  def listener_callback(): 
   ...
 ```
+Assim como os nós, tópicos também possuem uma série de comandos importantes de se ter em mente:
+
+#### Para ver os tópicos ativos no sistema e suas informações, como quantos publishers e subscribers há no tópico e seu tipo, use os os comandos: 
+```python
+ros2 topic list
+```
+```python
+ros2 topic info <nome_do_tópico>
+```
+#### Caso você queira saber apenas tipo do tópico:
+```python
+ros2 topic list -t
+```
+
+#### Para ver os dados sendo publicados em um tópico
+```python
+ros2 topic echo <nome_do_tópico>
+```
+
+#### Uma vez que você sabe o tipo do tópico, rode o seguinte comando para ter mais detalhes do tipo de dados que a mensagem espera
+```python
+ros2 interface show <tipo_do_tópico>
+```
+
+#### Para publicar dados em um tópico
+```python
+ros2 topic pub <topic_name> <tipo_de_msg> <'args'>
+# Use a flag --once para publicar uma mensagem e sair
+```
+
+#### Para publicar um dado mas fazer com que o robô continue se movimentando 
+```python 
+ros2 topic pub --rate <valor> <nome_do_topico> <tipo_de_mensagem> <'args'>
+# o valor é um número que diz para o ros rodar esse comando a x Hz 
+```
+
+#### Para verificar o rate em que um dado está sendo publicado
+```python
+ros2 topic hz <nome_do_topico>
+```
+
+
 
 ### Serviço
 
@@ -146,8 +197,37 @@ def main():
 
     rclpy.shutdown()
 ```
+Agora, acredito que você já esteja um pouco familiarizado com certos comandos, vou repassa-los aqui de forma mais breve e detalhar outros
+
+#### Para ver listas de servicos e seus tipos, você pode fazer de uma dessas três maneiras
+```python
+ros2 service list
+```
+```python
+ros2 service type <service_name>
+```
+```python
+ros2 service list -t 
+```
+
+#### Para encontrar todos os serviços de um tipo específico
+```python
+ros2 service find <type_name>
+```
+
+#### Para conhecer mais sobre a estrutura de uma entrada em um serviço
+```python 
+ros2 interface show <type_name>
+```
+
+#### Para chamar um serviço 
+```python
+ros2 service call <service_name> <service_type> <arguments>
+# O argumento aqui é opcional
+```
 
 ### Ação
+
 
 Em ROS 2, uma ação é um mecanismo de comunicação mais avançado do que tópicos e serviços, projetado para facilitar a execução de tarefas assíncronas que podem levar um tempo considerável para serem concluídas. As ações são usadas quando uma tarefa específica exige uma interação mais complexa entre nós, especialmente quando há uma expectativa de feedback contínuo durante a execução da tarefa.<br><br>
 As ações têm três componentes principais: Goal (objetivo), Result (resultado) e Feedback (feedback). O nó cliente envia um objetivo para o nó servidor (Goal), e o nó servidor fornece feedback contínuo durante a execução da tarefa. Após a conclusão da tarefa, o servidor envia o resultado de volta ao cliente.<br><br>
@@ -187,6 +267,26 @@ def main(args=None):
     flamengo_action_server = FlamengoActionServer()
 
     rclpy.spin(flamengo_action_server)
+```
+
+#### Para ações vamos ter comandos semelhantes para ver as alções ativas, seu tipo e mais informações
+```python
+ros2 action list
+```
+```python
+ros2 action list -t
+```
+```python
+ros2 action info <action_name>
+```
+#### Para ver como uma ação é estruturada
+```python
+ros2 interface show <action_type>
+```
+
+#### Para enviar uma ação
+```python
+ros2 action send_goal <action_name> <action_type> <values>
 ```
 
 ## Conclusão
