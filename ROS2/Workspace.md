@@ -40,6 +40,12 @@ Depois disso transformamos ele em um workspace (ws):
 colcon build --symlink-install
 ```
 
+O colcon, por padrão irá criar os seguintes diretórios como pares do diretório src:
+O diretório build sera onde os arquivos intermediários seram arquivados. Para cada pacote uma subpasta sera criada onde o CMake será invocado.
+O diretório install é onde cada pacote será instalado. POr padrão cada pacote será instalado dentro de subdiretórios separados. 
+O diretório Log contém várias informações em log sobre cada chamado do colcon. 
+
+
 Dentro do nosso ws/src criamos um pacote vazio:
 
 ```bash
